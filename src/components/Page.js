@@ -18,8 +18,8 @@ const Page = ({title, children, uiState}) => {
                 <AppHeader title={title}/>
             </AppBar>
             <Container maxWidth="xl">
-                <Box my={4}>
-                { children }
+                <Box >
+                    { uiState === UiState.Ready && children }
                 </Box>
                 <Box
                   my={6}
