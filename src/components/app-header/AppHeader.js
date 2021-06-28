@@ -8,10 +8,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { IconButton, Badge } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { selectProductQuantity } from '../../selectors';
+import AppBreadcrumb from '../app-breadcrumb/AppBreadcrumb';
 
 const AppHeader = ({title, productQuantity}) => {
-
-    console.log(productQuantity);
 
     return (
         <Toolbar>
@@ -24,8 +23,8 @@ const AppHeader = ({title, productQuantity}) => {
                     { title }
                 </Typography>
             </Box>
-            <Box flexGrow={1}>
-
+            <Box mx={10} flexGrow={1}>
+                <AppBreadcrumb />
             </Box>
             <Box>
                 <Badge badgeContent={productQuantity} color="secondary">
