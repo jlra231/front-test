@@ -4,8 +4,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { IconButton, Badge } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { selectProductQuantity } from '../../selectors';
 
-const AppHeader = ({title}) => {
+const AppHeader = ({title, productQuantity}) => {
+
+    console.log(productQuantity);
+
     return (
         <Toolbar>
             <Box>
@@ -17,6 +24,14 @@ const AppHeader = ({title}) => {
                     { title }
                 </Typography>
             </Box>
+            <Box flexGrow={1}>
+
+            </Box>
+            <Box>
+                <Badge badgeContent={productQuantity} color="secondary">
+                    <ShoppingCartIcon />
+                </Badge>
+            </Box>
         </Toolbar>
     )
 }
@@ -25,4 +40,8 @@ AppHeader.propTypes = {
     title: PropTypes.string.isRequired
 }
 
-export default AppHeader
+const mapStateToProps = (state) => ({
+    productQuantity: selectProductQuantity(state)
+})
+
+export default connect(mapStateToProps)(AppHeader)
