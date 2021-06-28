@@ -14,35 +14,21 @@ const AppBreadcrumb = ({product}) => {
     return (
         <Breadcrumbs aria-label="breadcrumb">
             {
-                pathnames?.length > 1 ? (
-                    <Link style={{ color: 'white' }} onClick={() => history.push('/')}>
-                        Products
-                    </Link>
-                ) : (
-                    <Typography style={{ color: 'white' }}>
-                        Products
-                    </Typography>
-                )
-            }    
-            {
-                pathnames?.map((name, index) => {
+                pathnames?.length && pathnames?.map((name, index) => {
                     const to = `/${pathnames.slice(0, index + 1).join('/')}`;
                     const isLast = index === pathnames.length - 1;
-
-                    const isProduct = product(name) !== undefined
+                    const isProduct = product(name) !== undefined;
+                    const title = name[0].toUpperCase() + name.slice(1);
                     
-                    if (index !== 0) {
-                        return isLast ? (
-                            <Typography key={name} style={{ color: 'white' }}>
-                                { isProduct ? product(name)?.model : name }                        
-                            </Typography>
-                        ) : (
-                            <Link key={name} style={{ color: 'white' }} onClick={() => history.push(to)}>
-                                { isProduct ? product(name)?.model : name }
-                            </Link>
-                        )
-                    }
-                    
+                    return isLast ? (
+                        <Typography key={name} style={{ color: 'white' }}>
+                            { isProduct ? product(name)?.model : title }                        
+                        </Typography>
+                    ) : (
+                        <Link key={name} style={{ color: 'white' }} onClick={() => history.push(to)}>
+                            { isProduct ? product(name)?.model : title }
+                        </Link>
+                    )
                 })
             }
         </Breadcrumbs>
