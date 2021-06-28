@@ -1,4 +1,4 @@
-import React, { useEffect, useState, bind } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,7 +22,7 @@ const ProductsList = ({products, requestLoadProducts, searchValue, setSearchValu
 
     return (
         <Page
-          title="List of products">
+          title="Products page">
             <Box my={2}              
               display="flex"
               flexDirection="row-reverse">
@@ -36,6 +36,7 @@ const ProductsList = ({products, requestLoadProducts, searchValue, setSearchValu
                     products?.length > 0 && products.map(product => 
                         <ProductItem 
                           key={product.id} 
+                          id={product.id}
                           model={product.model}
                           img={product.imgUrl}
                           brand={product.brand}

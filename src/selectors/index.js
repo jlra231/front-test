@@ -8,6 +8,12 @@ export const selectProducts = ({products}) =>
         :
             products.values
 
-export const selectUiState = state => state.products.uiState;
+export const selectProduct = ({products}) => products.product;
 
-export const selectSearchValue = state => state.products.search;
+export const selectUiState = ({products}) => products.uiState;
+
+export const selectSearchValue = ({products}) => products.search;
+
+export const selectProductQuantity = (state) => state.cart.productsQuantity;
+
+

@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 const AppHeader = ({title}) => {
     return (
         <Toolbar>
-            <Box flexGrow={1}>
+            <Box>
                 <Typography 
                   component={Link} 
-                  to="/" 
+                  to="/products" 
                   variant="h6" 
                   style={{ textDecoration: 'none', color: 'white' }}>
                     { title }
