@@ -16,9 +16,9 @@ const ProductsList = ({products, requestLoadProducts, searchValue, setSearchValu
     }
 
     useEffect(() => {
-        requestLoadProducts();
+        !products?.length && requestLoadProducts();
 
-    }, [requestLoadProducts])
+    }, [requestLoadProducts, products])
 
     return (
         <Page

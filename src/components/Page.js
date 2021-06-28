@@ -10,7 +10,7 @@ import { selectUiState } from '../selectors/index';
 import { UiState } from '../utils/UiState';
 import AppHeader from './app-header/AppHeader';
 
-const Page = ({title, children, uiState}) => {
+const Page = ({title, children}) => {
 
     return (
         <>
@@ -19,16 +19,16 @@ const Page = ({title, children, uiState}) => {
             </AppBar>
             <Container maxWidth="xl">
                 <Box >
-                    { uiState === UiState.Ready && children }
+                    { /*uiState === UiState.Ready && */ children }
                 </Box>
                 <Box
                   my={6}
                   display="flex"
                   justifyContent="center">
 
-                    { uiState === UiState.Loading && (
+                    { /*uiState === UiState.Loading && (
                         <CircularProgress />
-                    )}
+                    )*/}
 
                 </Box>
             </Container>
@@ -39,11 +39,11 @@ const Page = ({title, children, uiState}) => {
 Page.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
-    uiState: PropTypes.number.isRequired
+    //uiState: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    uiState: selectUiState(state)
+//     uiState: selectUiState(state)
 })
 
 export default connect(mapStateToProps)(Page);

@@ -49,9 +49,9 @@ const ProductDetail = ({product, requestProductDetail}) => {
 
     const { id } = useParams();
     useEffect(() => {
-        requestProductDetail(id);
+        product?.id !== id && requestProductDetail(id);
 
-    }, [requestProductDetail, id])
+    }, [requestProductDetail, id, product])
 
     return (
         <Page
@@ -66,7 +66,7 @@ const ProductDetail = ({product, requestProductDetail}) => {
                         <ProductDescription product={product} />
                         <Box 
                           my={10}>
-                            <ActionButtons product={product} />
+                            { product?.id && <ActionButtons id={product.id} options={product.options} /> }
                         </Box>
                     </Grid>
                 </Grid>
@@ -77,7 +77,7 @@ const ProductDetail = ({product, requestProductDetail}) => {
 }
 
 ProductDetail.propTypes = {
-
+    
 }
 
 const mapStateToProps = (state) => ({

@@ -7,9 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestAddProductCart } from '../../actions/cart';
 
-const ActionButtons = ({requestAddProductCart, product}) => {
-
-    const { options } = product
+const ActionButtons = ({requestAddProductCart, id, options}) => {
 
     const [ color, setColor ] = useState(options?.colors?.length > 1 ? 0 : options?.colors[0]?.code);
 
@@ -25,7 +23,7 @@ const ActionButtons = ({requestAddProductCart, product}) => {
 
     const addProduct = () => {
         requestAddProductCart({ 
-            id: product.id,
+            id: id,
             colorCode: color,
             storageCode: storage
         });
@@ -92,7 +90,21 @@ const ActionButtons = ({requestAddProductCart, product}) => {
 }
 
 ActionButtons.propTypes = {
-
+    id: PropTypes.string.isRequired,
+    options: PropTypes.shape({
+        colors: PropTypes.arrayOf(
+            PropTypes.shape({
+                code: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired
+            })
+        ).isRequired,
+        storages: PropTypes.arrayOf(
+            PropTypes.shape({
+                code: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired
+            })
+        ).isRequired
+    }).isRequired
 }
 
 const mapDispatchToProps = (dispatch) => (

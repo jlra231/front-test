@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Breadcrumbs, Typography, Link } from '@material-ui/core';
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 import { selectProductById } from '../../selectors';
 import { connect } from 'react-redux';
 
