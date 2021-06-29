@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -74,10 +73,6 @@ const ProductDetail = ({product, requestProductDetail}) => {
 
         </Page>
     )
-}
-
-ProductDetail.propTypes = {
-    
 }
 
 const mapStateToProps = (state) => ({

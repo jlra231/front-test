@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextField, Box, Grid } from '@material-ui/core';
@@ -55,10 +54,6 @@ const ProductsList = ({products, requestLoadProducts, searchValue, setSearchValu
                   handleClose={() => {setErrorMessage(''); requestLoadProducts();}}/>
         </Page>
     )
-}
-
-ProductsList.propTypes = {
-
 }
 
 const mapStateToProps = (state) => ({
