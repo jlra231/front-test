@@ -5,9 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { IconButton, Badge } from '@material-ui/core';
+import { Badge } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { selectProductQuantity } from '../../selectors';
+import { selectProductQuantity } from '../../selectors/cart';
 import AppBreadcrumb from '../app-breadcrumb/AppBreadcrumb';
 
 const AppHeader = ({title, productQuantity}) => {

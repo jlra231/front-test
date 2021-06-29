@@ -6,8 +6,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { requestAddProductCart } from '../../actions/cart';
+import { setErrorMessage } from '../../actions/errors';
+import AppDialog from '../app-dialog/AppDialog';
+import { selectErrorMessage } from '../../selectors/errors';
 
-const ActionButtons = ({requestAddProductCart, id, options}) => {
+const ActionButtons = ({requestAddProductCart, id, options, errorMessageDialog, setErrorMessage}) => {
 
     const [ color, setColor ] = useState(options?.colors?.length > 1 ? 0 : options?.colors[0]?.code);
 
@@ -84,7 +87,16 @@ const ActionButtons = ({requestAddProductCart, id, options}) => {
                   onClick={addProduct}>
                     Add to cart
                 </Button>
+
+                <AppDialog 
+                  title="Error description" 
+                  message={errorMessageDialog && errorMessageDialog}
+                  openDialog={errorMessageDialog?.length ? true : false}
+                  buttonText="Accept"
+                  handleClose={() => {setErrorMessage('')}}/>
+                
             </Box>
+            
         </>
     )
 }
@@ -107,8 +119,12 @@ ActionButtons.propTypes = {
     }).isRequired
 }
 
+const mapStateToProps = (state) => ({
+    errorMessageDialog: selectErrorMessage(state)
+})
+
 const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({ requestAddProductCart }, dispatch)
+    bindActionCreators({ requestAddProductCart, setErrorMessage }, dispatch)
 )
 
-export default connect(null, mapDispatchToProps)(ActionButtons);
+export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons);

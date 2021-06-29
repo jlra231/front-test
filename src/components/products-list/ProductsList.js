@@ -5,11 +5,14 @@ import { bindActionCreators } from 'redux';
 import { TextField, Box, Grid } from '@material-ui/core';
 
 import Page from '../Page.js';
-import { selectProducts, selectSearchValue } from '../../selectors/index';
+import { selectProducts, selectSearchValue } from '../../selectors/products';
 import { requestLoadProducts, setSearchValue } from '../../actions/products.js';
 import ProductItem from '../product-item/ProductItem';
+import AppDialog from '../app-dialog/AppDialog.js';
+import { selectErrorMessage } from '../../selectors/errors.js';
+import { setErrorMessage } from '../../actions/errors.js';
 
-const ProductsList = ({products, requestLoadProducts, searchValue, setSearchValue}) => {
+const ProductsList = ({products, requestLoadProducts, searchValue, setSearchValue, errorMessageDialog, setErrorMessage}) => {
 
     const onChangeHandler = ({target: { value }}) => {
         setSearchValue(value);         
@@ -44,6 +47,12 @@ const ProductsList = ({products, requestLoadProducts, searchValue, setSearchValu
                     )
                 }
             </Grid>
+            <AppDialog 
+                  title="Error description" 
+                  message={errorMessageDialog && errorMessageDialog}
+                  openDialog={errorMessageDialog?.length ? true : false}
+                  buttonText="Retry"
+                  handleClose={() => {setErrorMessage(''); requestLoadProducts();}}/>
         </Page>
     )
 }
@@ -54,11 +63,12 @@ ProductsList.propTypes = {
 
 const mapStateToProps = (state) => ({
     products: selectProducts(state),
-    searchValue: selectSearchValue(state)
+    searchValue: selectSearchValue(state),
+    errorMessageDialog: selectErrorMessage(state)
 })
 
 const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({ setSearchValue, requestLoadProducts }, dispatch)
+    bindActionCreators({ setSearchValue, requestLoadProducts, setErrorMessage }, dispatch)
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);

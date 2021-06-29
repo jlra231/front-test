@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { Grid, Box } from '@material-ui/core';
 
 import Page from '../Page.js';
-import { selectProduct } from '../../selectors/index';
+import { selectProduct } from '../../selectors/products';
 import { requestProductDetail } from '../../actions/products.js';
 import ActionButtons from '../action-buttons/ActionButtons.js';
 

@@ -1,20 +1,25 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ACTION_CART_PRODUCT_REQUEST_ADD, ACTION_CART_PRODUCT_ADD, ACTION_CART_PRODUCT_ERROR_PROCESSING } from '../actions/cart';
 
+import { addProduct, requestAddProductCart } from '../actions/cart';
+import { setErrorMessage } from '../actions/errors';
+import { startLoading, stopLoading } from '../actions/loading';
 import ProductService from '../services/ProductService';
 
-function* addProduct({ payload }) {
+function* addProd({ payload }) {
     try {
+        yield put(startLoading());
         const res = yield call(ProductService.addProductCart, payload);
         const data = yield res.json();
-        yield put({type: ACTION_CART_PRODUCT_ADD, payload: data});
+        yield put(addProduct(data));
+        yield put(stopLoading());
         
     } catch (error) {
-        yield put({type: ACTION_CART_PRODUCT_ERROR_PROCESSING});
+        yield put(stopLoading());
+        yield put(setErrorMessage('Error processing the request'));
     }
 }
 
 
 export const cartSagas = [
-    takeLatest(ACTION_CART_PRODUCT_REQUEST_ADD, addProduct)
+    takeLatest(requestAddProductCart().type, addProd)
 ];

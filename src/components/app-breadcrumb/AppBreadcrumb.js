@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Breadcrumbs, Typography, Link } from '@material-ui/core';
-import { selectProductById } from '../../selectors';
+import { selectProductById } from '../../selectors/products';
 import { connect } from 'react-redux';
 
 const AppBreadcrumb = ({product}) => {

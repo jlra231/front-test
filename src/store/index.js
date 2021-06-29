@@ -20,7 +20,9 @@ const persistConfig = {
     key: 'root',
     storage,
     stateReconciler: autoMergeLevel2,
+    blacklist: ['errors', 'loading'],
     transforms: [expireIn(timeExpireIn, 'expirationTime', [])]
+    
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

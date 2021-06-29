@@ -1,31 +1,38 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ACTION_PRODUCTS_DETAIL, ACTION_PRODUCTS_ERROR_LOADING, ACTION_PRODUCTS_LOAD, ACTION_PRODUCTS_REQUEST_DETAIL, ACTION_PRODUCTS_REQUEST_LOAD } from '../actions/products';
-
+import { requestLoadProducts, loadProducts, getProductDetail, requestProductDetail } from '../actions/products';
+import { startLoading, stopLoading } from '../actions/loading';
 import ProductService from '../services/ProductService';
+import { setErrorMessage } from '../actions/errors';
 
 function* getProducts() {
-    try {
-        const res = yield call(ProductService.getAll);
-        const data = yield res.json();
-        yield put({type: ACTION_PRODUCTS_LOAD, payload: data});
+     try {
+         yield put(startLoading());
+         const res = yield call(ProductService.getAll);
+         const data = yield res.json();
+         yield put(loadProducts(data));
+         yield put(stopLoading());
         
-    } catch (error) {
-        yield put({type: ACTION_PRODUCTS_ERROR_LOADING});
-    }
+     } catch (error) {
+         yield put(stopLoading());
+         yield put(setErrorMessage('Error loading products'));
+     }
 }
 
 function* getProduct({ payload }) {
     try {
+        yield put(startLoading());
         const res = yield call(ProductService.getProduct, payload);
         const data = yield res.json();
-        yield put({type: ACTION_PRODUCTS_DETAIL, payload: data});
+        yield put(getProductDetail(data));
+        yield put(stopLoading());
         
     } catch (error) {
-        yield put({type: ACTION_PRODUCTS_ERROR_LOADING});
+        yield put(stopLoading());
+        yield put(setErrorMessage('Error getting the product'));
     }
 }
 
 export const productSagas = [
-    takeLatest(ACTION_PRODUCTS_REQUEST_LOAD, getProducts),
-    takeLatest(ACTION_PRODUCTS_REQUEST_DETAIL, getProduct),
+    takeLatest(requestLoadProducts().type, getProducts),
+    takeLatest(requestProductDetail().type, getProduct),
 ];
